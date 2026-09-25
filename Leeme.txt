@@ -1,0 +1,16 @@
+Taller de programación orientada a objetos
+Por: Andrés Felipe Ávila Arroyave
+
+## Cómo ejecutar el proyecto
+
+Para probar el programa, debes ejecutar la clase `Main.java` que está en la raíz de la carpeta
+`src/`.
+
+
+Pasos:
+
+1. Ve a la carpeta `src/` y abre el archivo `Main.java`.
+2. Haz clic en el botón verde de Play (*Run*) o presiona `Shift + F10`.
+
+Al ejecutarlo se abrirá la consola de comandos con el menú interactivo para probar
+todas las funciones de Admisiones (registro de estudiantes, profesores y matrículas).
