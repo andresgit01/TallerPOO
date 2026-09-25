@@ -62,7 +62,7 @@ public class AdmisionesController {
         }
         return null;
     }
-    public Boolean actualizarProfesor(int id, String nuevoNombre, String nuevoCorreo, String nuevaEspecialidad){
+    public Boolean actualizarProfesor(int id, String nuevoNombre, String nuevoCorreo, String nuevaEspecialidad, String setDepartamento){
         Profesor profesor = buscarProfesor(id);
         if (profesor != null) {
             profesor.setNombre(nuevoNombre);
