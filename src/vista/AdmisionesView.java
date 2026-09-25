@@ -15,17 +15,18 @@ public class AdmisionesView {
     }
     public void iniciar() {
     int opcion = 0;
-    while (opcion !=9) {
-        System.out.println("\n============== COMPONENTE DE ADMISIONES /n==============");
+    while (opcion !=10) {
+        System.out.println("\n============== COMPONENTE DE ADMISIONES ==============");
         System.out.println("1. Registrar Estudiante.");
         System.out.println("2. Consultar Estudiante.");
         System.out.println("3. Actualizar Estudiante.");
         System.out.println("4. Eliminar Estudiante.");
         System.out.println("5. Registrar Profesor.");
         System.out.println("6. Consultar Profesor.");
-        System.out.println("7. Matricular Estudiante en una Materia");
-        System.out.println("8. Asignar Profesor a una Materia.");
-        System.out.println("9. Salir");
+        System.out.println("7. Actualizar Profesor.");
+        System.out.println("8. Matricular Estudiante en una Materia");
+        System.out.println("9. Asignar Profesor a una Materia.");
+        System.out.println("10. Salir");
         System.out.print("Seleccione una opcion: ");
         opcion = scanner.nextInt();
         scanner.nextLine();
@@ -48,15 +49,18 @@ public class AdmisionesView {
                 registrarProfesorView();
                 break;
             case 6:
-                consultarPorfesorView();
+                consultarProfesorView();
                 break;
             case 7:
-                matricularEstudianteView();
+                actualizarProfesorView();
                 break;
             case 8:
-                asignarProfesorView();
+                matricularEstudianteView();
                 break;
             case 9:
+                asignarProfesorView();
+                break;
+            case 10:
                 System.out.println("Saliendo del componente admisiones...");
                 break;
             default:
@@ -67,7 +71,7 @@ public class AdmisionesView {
     }
     }
     private void registrarEstudianteView() {
-        System.out.println("Ingrese el ID del estudiante: ");
+        System.out.println("Ingrese el ID del estudiante (En numeros enteros): ");
         int id = scanner.nextInt();
         scanner.nextLine();
 
@@ -77,7 +81,7 @@ public class AdmisionesView {
         System.out.println("Ingrese un correo electronico: ");
         String correo = scanner.nextLine();
 
-        System.out.println("Ingrese su codigo estudiantil: ");
+        System.out.println("Ingrese su codigo estudiantil (En numeros entero): ");
         int codigo = scanner.nextInt();
         scanner.nextLine();
 
@@ -96,17 +100,17 @@ public class AdmisionesView {
         Estudiante estudiante = controller.buscarEstudiante(id);
         if (estudiante != null) {
             System.out.println("Datos del estudiante: ");
-            System.out.println("ID: " + estudiante.getId());
+            System.out.println("ID (En numeros enteros): )" + estudiante.getId());
             System.out.println("Nombre: " + estudiante.getNombre());
             System.out.println("Correo: " + estudiante.getCorreo());
-            System.out.println("Codigo estudiantil: " + estudiante.getCodigoEstudiantil());
+            System.out.println("Codigo estudiantil (En numeros enteros): " + estudiante.getCodigoEstudiantil());
             System.out.println("Carrera: " + estudiante.getCarrera());
         }else{
             System.out.println("Estudiante no encontrado.");
         }
     }
     public void actualizarEstudianteView() {
-        System.out.println("Ingrese el ID del estudiante a actualizar: ");
+        System.out.println("Ingrese el ID del estudiante a actualizar (En numeros enteros): ");
         int id = scanner.nextInt();
         scanner.nextLine();
 
@@ -126,7 +130,7 @@ public class AdmisionesView {
         }
     }
     private void eliminarEstudianteView() {
-        System.out.println("Ingrese el ID del estudiante que desea eliminar: ");
+        System.out.println("Ingrese el ID del estudiante que desea eliminar (En numeros enteros): ");
         int id = scanner.nextInt();
         scanner.nextLine();
 
@@ -155,9 +159,9 @@ public class AdmisionesView {
 
         Profesor profesor = new Profesor(id, nombre, correo, especialidad, departamento);
         controller.registrarProfesor(profesor);
-        System.out.println("Porfesor registrado correctamente.");
+        System.out.println("Profesor registrado correctamente.");
     }
-    private void consultarPorfesorView() {
+    private void consultarProfesorView() {
         System.out.println("Ingrese el ID del profesor que desea consultar: ");
         int id = scanner.nextInt();
         Profesor profesor = controller.buscarProfesor(id);
@@ -171,6 +175,33 @@ public class AdmisionesView {
             System.out.println("Profesor no encontrado.");
         }
     }
+
+    private void actualizarProfesorView() {
+
+        System.out.println("Ingrese el ID del profesor que desea actualizar: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Ingrese el nuevo nombre: ");
+        String nombre = scanner.nextLine();
+
+        System.out.println("Ingrese el nuevo correo: ");
+        String correo = scanner.nextLine();
+
+        System.out.println("Ingrese el nuevo departamento: ");
+        String departamento = scanner.nextLine();
+
+        System.out.println("Ingrese la nueva espacialidad");
+        String especialidad = scanner.nextLine();
+
+            if (controller.actualizarProfesor(id, nombre,correo, departamento, especialidad)) {
+                System.out.println("El profesor ha sido actualizado correctamente.");
+            }else {
+                System.out.println("No se pudo actualizar al profesor. Profesor no encontrado.");
+            }
+
+        }
+
 
     private void matricularEstudianteView() {
         System.out.println("Ingrese el ID del estudiante: ");

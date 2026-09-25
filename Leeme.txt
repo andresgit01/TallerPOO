@@ -1,5 +1,5 @@
 Taller de programación orientada a objetos
-Por: Andrés Felipe Ávila Arroyave
+Por: Jorge Eduardo Muñoz Quintero, Andrés Felipe Ávila Arroyave,
 
 ## Cómo ejecutar el proyecto
 

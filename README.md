@@ -9,7 +9,7 @@ src/
 └── co/edu/barbosa/
     ├── Main.java
     └── direccionacademica/
-        ├── model/
+        ├── modelo/
         │   ├── ActividadAcademica.java (Abstracta)
         │   ├── Taller.java
         │   ├── Quiz.java
@@ -18,9 +18,10 @@ src/
         │   ├── Materia.java
         │   ├── Nota.java
         │   └── IServicioAdmisiones.java (Interfaz para interacción entre componentes)
-        ├── controller/
+        ├── controlador/
+        |   ├── AdmisionesController.java
         │   └── DireccionAcademicaController.java
-        └── view/
+        └── vista/
             └── DireccionAcademicaView.java
 ```
 
