@@ -24,6 +24,8 @@ public class DireccionAcademicaView {
             System.out.println("2. Modificar Nombre de Materia");
             System.out.println("3. Cambiar Estado (Habilitar/Deshabilitar Materia)");
             System.out.println("4. Registrar Nota de Estudiante");
+            System.out.println("5. Ver Materias Disponibles");
+            System.out.println("6. Consultar Notas de un Estudiante");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
 
@@ -34,6 +36,8 @@ public class DireccionAcademicaView {
                 case 2 -> menuModificarMateria();
                 case 3 -> menuCambiarEstadoMateria();
                 case 4 -> menuRegistrarNota();
+                case 5 -> menuVerMateriasDisponibles();
+                case 6 -> menuConsultarNotas();
                 case 0 -> System.out.println("Saliendo del módulo de Dirección Académica...");
                 default -> System.out.println("⚠️ Opción no válida.");
             }
@@ -48,15 +52,15 @@ public class DireccionAcademicaView {
         String nombre = scanner.nextLine().trim();
 
         if (codigo.isEmpty() || nombre.isEmpty()) {
-            System.out.println("❌ Error: Los campos no pueden estar vacíos.");
+            System.out.println(" Error: Los campos no pueden estar vacíos.");
             return;
         }
 
         boolean creado = controller.crearMateria(codigo, nombre);
         if (creado) {
-            System.out.println("✅ Materia " + codigo + " creada exitosamente.");
+            System.out.println(" Materia " + codigo + " creada exitosamente.");
         } else {
-            System.out.println("❌ Error: Ya existe una materia con el código " + codigo);
+            System.out.println(" Error: Ya existe una materia con el código " + codigo);
         }
     }
 
@@ -69,14 +73,14 @@ public class DireccionAcademicaView {
 
         boolean modificado = controller.modificarMateria(codigo, nuevoNombre);
         if (modificado) {
-            System.out.println("✅ Nombre de la materia actualizado con éxito.");
+            System.out.println(" Nombre de la materia actualizado con éxito.");
         } else {
-            System.out.println("❌ Error: No se encontró la materia con código " + codigo);
+            System.out.println(" Error: No se encontró la materia con código " + codigo);
         }
     }
 
     private void menuCambiarEstadoMateria() {
-        System.out.println("\n--- 🔄 HABILITAR / DESHABILITAR MATERIA ---");
+        System.out.println("\n---  HABILITAR / DESHABILITAR MATERIA ---");
         System.out.print("Ingrese el código de la materia: ");
         String codigo = scanner.nextLine().trim();
 
@@ -92,14 +96,14 @@ public class DireccionAcademicaView {
         boolean cambiado = controller.cambiarEstadoMateria(codigo, habilitar);
 
         if (cambiado) {
-            System.out.println("✅ Estado de la materia actualizado correctamente.");
+            System.out.println(" Estado de la materia actualizado correctamente.");
         } else {
-            System.out.println("❌ Error: No se encontró la materia solicitada.");
+            System.out.println(" Error: No se encontró la materia solicitada.");
         }
     }
 
     private void menuRegistrarNota() {
-        System.out.println("\n--- 📊 REGISTRAR NOTA DE ACTIVIDAD ---");
+        System.out.println("\n--- REGISTRAR NOTA DE ACTIVIDAD ---");
         System.out.print("Ingrese la Cédula/ID del estudiante (solo números): ");
         String idEstudiante = scanner.nextLine().trim();
         System.out.print("Ingrese el código de la materia (solo números): ");
@@ -132,6 +136,34 @@ public class DireccionAcademicaView {
 
         String resultado = controller.registrarNota(idEstudiante, codigoMateria, actividad, notaValor);
         System.out.println(resultado);
+    }
+
+    private void menuVerMateriasDisponibles() {
+        System.out.println("\n---  MATERIAS DISPONIBLES ---");
+        boolean hayMaterias = false;
+        for (Materia m : controller.obtenerMateriasDisponibles()) {
+            System.out.println(m.getCodigo() + " - " + m.getNombre());
+            hayMaterias = true;
+        }
+        if (!hayMaterias) {
+            System.out.println("No hay materias habilitadas.");
+        }
+    }
+
+    private void menuConsultarNotas() {
+        System.out.println("\n--- NOTAS DE UN ESTUDIANTE ---");
+        System.out.print("Ingrese la Cédula/ID del estudiante: ");
+        String idEstudiante = scanner.nextLine().trim();
+
+        boolean hayNotas = false;
+        for (Nota n : controller.obtenerNotasEstudiante(idEstudiante)) {
+            System.out.println("Materia " + n.getCodigoMateria() + " | " + n.getActividad().getNombre()
+                    + " | nota " + n.getValor() + " | ponderado " + n.getValorPonderado());
+            hayNotas = true;
+        }
+        if (!hayNotas) {
+            System.out.println("El estudiante [" + idEstudiante + "] no tiene notas registradas.");
+        }
     }
 
     private int leerEntero() {

@@ -1,19 +1,16 @@
 package modelo.direccionAcademica;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Materia {
     private String codigo;
     private String nombre;
     private boolean habilitada;
-    private List<ActividadAcademica> actividades;
+    private ListaActividades actividades;
 
     public Materia(String codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.habilitada = true;
-        this.actividades = new ArrayList<>();
+        this.actividades = new ListaActividades();
     }
 
     public String getCodigo() {
@@ -37,10 +34,10 @@ public class Materia {
     }
 
     public void agregarActividad(ActividadAcademica actividad) {
-        this.actividades.add(actividad);
+        this.actividades.agregar(actividad);
     }
 
-    public List<ActividadAcademica> getActividades() {
+    public ListaActividades getActividades() {
         return actividades;
     }
 }
