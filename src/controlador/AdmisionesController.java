@@ -1,9 +1,9 @@
 package controlador;
 
-import modelo.Admisiones.AsignacionProfesor;
-import modelo.Admisiones.Estudiante;
-import modelo.Admisiones.Matricula;
-import modelo.Admisiones.Profesor;
+import modelo.admisiones.AsignacionProfesor;
+import modelo.admisiones.Estudiante;
+import modelo.admisiones.Matricula;
+import modelo.admisiones.Profesor;
 
 import estructuras.ListaEstudiantes;
 import estructuras.ListaProfesores;

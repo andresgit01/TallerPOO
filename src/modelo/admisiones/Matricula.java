@@ -1,4 +1,4 @@
-package modelo.Admisiones;
+package modelo.admisiones;
 
 public class Matricula {
     private int idEstudiante;

@@ -1,6 +1,6 @@
 package estructuras;
 
-import modelo.Admisiones.Matricula;
+import modelo.admisiones.Matricula;
 
 public class NodoMatricula {
     private Matricula matricula;

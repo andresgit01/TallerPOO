@@ -1,6 +1,6 @@
 package estructuras;
 
-import modelo.Admisiones.Profesor;
+import modelo.admisiones.Profesor;
 
 public class NodoProfesor {
     private Profesor profesor;

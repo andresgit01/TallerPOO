@@ -1,6 +1,6 @@
 package estructuras;
 
-import modelo.Admisiones.AsignacionProfesor;
+import modelo.admisiones.AsignacionProfesor;
 
 public class NodoAsignacionProfesor {
     private AsignacionProfesor asignacionProfesor;

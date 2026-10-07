@@ -1,6 +1,6 @@
 package estructuras;
 
-import modelo.Admisiones.Estudiante;
+import modelo.admisiones.Estudiante;
 
 public class ListaEstudiantes {
     private NodoEstudiante head;
