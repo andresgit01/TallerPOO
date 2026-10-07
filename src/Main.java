@@ -10,10 +10,8 @@ public class Main {
         // Un solo Scanner para evitar conflictos en la consola de IntelliJ
         Scanner scanner = new Scanner(System.in);
 
-        // Instanciamos el controlador que hizo tu compañero
         AdmisionesController admisionesController = new AdmisionesController();
 
-        // Instanciamos TU controlador y hacemos el "puente" de comunicación independiente
         DireccionAcademicaController daController = new DireccionAcademicaController((idStr, codStr) -> {
             try {
                 return admisionesController.estaMatriculado(
@@ -23,7 +21,6 @@ public class Main {
             }
         });
 
-        // Instanciamos las vistas de ambos
         AdmisionesView admisionesView = new AdmisionesView(admisionesController, scanner);
         DireccionAcademicaView daView = new DireccionAcademicaView(daController, scanner);
 
