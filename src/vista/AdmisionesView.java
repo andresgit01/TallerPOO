@@ -1,6 +1,6 @@
 package vista;
-import modelo.Admisiones.Estudiante;
-import modelo.Admisiones.Profesor;
+import modelo.admisiones.Estudiante;
+import modelo.admisiones.Profesor;
 import controlador.AdmisionesController;
 
 import java.util.Scanner;

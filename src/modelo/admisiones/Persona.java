@@ -1,4 +1,4 @@
-package modelo.Admisiones;
+package modelo.admisiones;
 
 public abstract class Persona {
     private int id;

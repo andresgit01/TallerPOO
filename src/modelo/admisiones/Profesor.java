@@ -1,4 +1,4 @@
-package modelo.Admisiones;
+package modelo.admisiones;
 
 public class Profesor extends Persona {
     private String especialidad;
