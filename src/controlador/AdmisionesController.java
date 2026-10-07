@@ -1,33 +1,42 @@
 package controlador;
+
 import modelo.Admisiones.AsignacionProfesor;
 import modelo.Admisiones.Estudiante;
 import modelo.Admisiones.Matricula;
 import modelo.Admisiones.Profesor;
 
-import java.util.List;
-import java.util.ArrayList;
+import estructuras.ListaEstudiantes;
+import estructuras.ListaProfesores;
+import estructuras.ListaMatriculas;
+import estructuras.ListaAsignacionesProfesor;
+
+import estructuras.NodoEstudiante;
+import estructuras.NodoProfesor;
+import estructuras.NodoMatricula;
 
 public class AdmisionesController {
-    private List<Estudiante> estudiantes = new ArrayList<>();
-    private List<Profesor> profesores = new ArrayList<>();
-    private List<Matricula> matriculas = new ArrayList<>();
-    private  List<AsignacionProfesor> asignaciones = new ArrayList<>();
+    private ListaEstudiantes listaEstudiantes = new ListaEstudiantes();
+    private ListaProfesores listaProfesores = new ListaProfesores();
+    private ListaMatriculas listaMatriculas = new ListaMatriculas();
+    private ListaAsignacionesProfesor listaAsignaciones = new ListaAsignacionesProfesor();
 
     public void registrarEstudiante(Estudiante estudiante) {
-        estudiantes.add(estudiante);
+        listaEstudiantes.agregarEstudiante(estudiante);
     }
 
-    public  Estudiante buscarEstudiante(int id){
-        for (Estudiante estudiante : estudiantes) {
-            if (estudiante.getId() == id) {
-                return estudiante;
+    public Estudiante buscarEstudiante(int identificacion) {
+        NodoEstudiante actual = listaEstudiantes.getHead();
+        while (actual != null) {
+            if (actual.getEstudiante().getId() == identificacion) {
+                return actual.getEstudiante();
             }
+            actual = actual.getSiguiente();
         }
         return null;
     }
 
-    public boolean actualizarEstudiante(int id, String nuevoNombre, String nuevoCorreo,String nuevaCarrera) {
-        Estudiante estudiante = buscarEstudiante(id);
+    public boolean actualizarEstudiante(int identificacion, String nuevoNombre, String nuevoCorreo, String nuevaCarrera) {
+        Estudiante estudiante = buscarEstudiante(identificacion);
         if (estudiante != null) {
             estudiante.setNombre(nuevoNombre);
             estudiante.setCorreo(nuevoCorreo);
@@ -37,96 +46,94 @@ public class AdmisionesController {
         return false;
     }
 
-    public boolean eliminarEstudiante(int id) {
-        Estudiante estudiante = buscarEstudiante(id);
+    public boolean eliminarEstudiante(int identificacion) {
+        Estudiante estudiante = buscarEstudiante(identificacion);
         if (estudiante != null) {
-            estudiantes.remove(estudiante);
-            return true;
+            return listaEstudiantes.eliminarEstudiante(estudiante);
         }
         return false;
     }
 
-    public List<Estudiante> getEstudiantes() {
-        return estudiantes;
+    public ListaEstudiantes getListaEstudiantes() {
+        return listaEstudiantes;
     }
 
     public void registrarProfesor(Profesor profesor) {
-        profesores.add(profesor);
+        listaProfesores.agregarProfesor(profesor);
     }
 
-    public Profesor buscarProfesor(int id) {
-        for(Profesor profesor : profesores) {
-            if (profesor.getId() == id) {
-                return profesor;
+    public Profesor buscarProfesor(int identificacion) {
+        NodoProfesor actual = listaProfesores.getHead();
+        while (actual != null) {
+            if (actual.getProfesor().getId() == identificacion) {
+                return actual.getProfesor();
             }
+            actual = actual.getSiguiente();
         }
         return null;
     }
-    public Boolean actualizarProfesor(int id, String nuevoNombre, String nuevoCorreo, String nuevaEspecialidad, String setDepartamento){
-        Profesor profesor = buscarProfesor(id);
+
+    public Boolean actualizarProfesor(int identificacion, String nuevoNombre, String nuevoCorreo, String nuevaEspecialidad, String nuevoDepartamento) {
+        Profesor profesor = buscarProfesor(identificacion);
         if (profesor != null) {
             profesor.setNombre(nuevoNombre);
             profesor.setCorreo(nuevoCorreo);
             profesor.setEspecialidad(nuevaEspecialidad);
+            profesor.setDepartamento(nuevoDepartamento);
             return true;
         }
         return false;
     }
 
-    public boolean eliminarProfesor(int id) {
-        Profesor profesor = buscarProfesor(id);
+    public boolean eliminarProfesor(int identificacion) {
+        Profesor profesor = buscarProfesor(identificacion);
         if (profesor != null) {
-            profesores.remove(profesor);
-            return true;
+            return listaProfesores.eliminarProfesor(profesor);
         }
         return false;
     }
 
-    public List<Profesor> getProfesores() {
-        return profesores;
+    public ListaProfesores getListaProfesores() {
+        return listaProfesores;
     }
 
-    public boolean matricularEstudiante(int idEstudiante, int codigoMatieria) {
-        if (buscarEstudiante(idEstudiante) == null) {
+    public boolean matricularEstudiante(int identificacionEstudiante, int codigoMateria) {
+        if (buscarEstudiante(identificacionEstudiante) == null) {
             System.out.println("ERROR: El estudiante no existe en admisiones.");
             return false;
         }
-        if (estaMatriculado(idEstudiante, codigoMatieria)) {
+        if (estaMatriculado(identificacionEstudiante, codigoMateria)) {
             System.out.println("ERROR: El estudiante ya esta matriculado en esta materia.");
             return false;
         }
-        Matricula nuevaMatricula = new Matricula(idEstudiante, codigoMatieria);
-        matriculas.add(nuevaMatricula);
+        Matricula nuevaMatricula = new Matricula(identificacionEstudiante, codigoMateria);
+        listaMatriculas.agregarMatricula(nuevaMatricula);
         return true;
     }
 
-    public boolean asignarProfesorAMateria(int idProfesor, int codigoMateria) {
-        if (buscarProfesor(idProfesor) == null) {
+    public boolean asignarProfesorAMateria(int identificacionProfesor, int codigoMateria) {
+        if (buscarProfesor(identificacionProfesor) == null) {
             System.out.println("ERROR: El profesor no existe en admisiones.");
             return false;
         }
-        AsignacionProfesor nuevaAsignacion = new AsignacionProfesor(idProfesor, codigoMateria);
-        asignaciones.add(nuevaAsignacion);
+        AsignacionProfesor nuevaAsignacion = new AsignacionProfesor(identificacionProfesor, codigoMateria);
+        listaAsignaciones.agregarAsignacionProfesor(nuevaAsignacion);
         return true;
     }
 
-
-    //Metodos para otros modulos:
-    //Existe persona es usado por MANEJO DE ACTIVOS para consultar si la persoba existe...
-
-    public boolean existePersona(int id) {
-        return buscarEstudiante(id) != null || buscarProfesor(id) != null;
+    public boolean existePersona(int identificacion) {
+        return buscarEstudiante(identificacion) != null || buscarProfesor(identificacion) != null;
     }
 
-    //Esto lo usa DIRECCION ACADEMICA para verificar antes de registrar notas...
-
-    public boolean estaMatriculado(int idEstudiante, int codigoMateria) {
-        for(Matricula matricula : matriculas) {
-            if (matricula.getIdEstudiante() == idEstudiante && matricula.getCodigoMateria() == codigoMateria){
+    public boolean estaMatriculado(int identificacionEstudiante, int codigoMateria) {
+        NodoMatricula actual = listaMatriculas.getHead();
+        while (actual != null) {
+            Matricula matricula = actual.getMatricula();
+            if (matricula.getIdEstudiante() == identificacionEstudiante && matricula.getCodigoMateria() == codigoMateria) {
                 return true;
             }
+            actual = actual.getSiguiente();
         }
         return false;
     }
-
 }
