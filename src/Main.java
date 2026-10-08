@@ -3,6 +3,10 @@ import controlador.DireccionAcademicaController;
 import vista.AdmisionesView;
 import vista.DireccionAcademicaView;
 
+import controlador.ActivosController;
+import vista.ActivosView;
+
+
 import java.util.Scanner;
 
 public class Main {
@@ -11,6 +15,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         AdmisionesController admisionesController = new AdmisionesController();
+
+        ActivosController activosController =
+                new ActivosController(admisionesController::existePersona);
+
+        ActivosView activosView =
+                new ActivosView(activosController, scanner);
 
         DireccionAcademicaController daController = new DireccionAcademicaController((idStr, codStr) -> {
             try {
@@ -32,6 +42,7 @@ public class Main {
             System.out.println("==========================================");
             System.out.println("1. Entrar al Módulo de Admisiones");
             System.out.println("2. Entrar al Módulo de Dirección Académica");
+            System.out.println("3. Entrar al Módulo de Manejo de Activos");
             System.out.println("0. Salir del Sistema");
             System.out.print("Seleccione una opción: ");
 
@@ -45,9 +56,15 @@ public class Main {
             switch (opcion) {
                 case 1 -> admisionesView.iniciar();
                 case 2 -> daView.iniciarMenuInteractivo();
+                case 3 -> activosView.iniciar();
                 case 0 -> System.out.println("Cerrando el sistema general...");
                 default -> System.out.println("Opción no válida.");
             }
         } while (opcion != 0);
+
+
+
+
+
     }
 }
